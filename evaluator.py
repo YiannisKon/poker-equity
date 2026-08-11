@@ -31,16 +31,62 @@ def is_straight(cards):
             return None
     return straight[4]
 
-    
 
+# poker hands: high card, one pair, two pair, three of a king, straight, flush, full house,
+# four of a king, straight flush
+
+
+def evaluate_hand(cards):
+    counts = rank_counts(cards)
+    ordered = sorted(counts.items(), key=lambda item: (item[1], item[0]), reverse=True)
+    count_pattern = [] # e.g.  [3, 2],  [2, 2, 1]
+    rank_tiebreaker = [] # e.g. [9, 12] for 9-9-9-Q-Q
+    for rank, count in ordered:
+        rank_tiebreaker.append(rank)
+        count_pattern.append(count)
+
+    flush = is_flush(cards)
+    straight = is_straight(cards)
+
+    # Straight Flush:
+    if flush and straight:
+        return (9, straight)
+    # Four of a kind:
+    elif count_pattern == [4, 1]:
+        return (8, *rank_tiebreaker)
+    # Full House:
+    elif count_pattern == [3, 2]:
+        return (7, *rank_tiebreaker)
+    # Flush:
+    elif flush:
+        return (6, *flush)
+    # Straight:
+    elif straight:
+        return (5, straight)
+    # Three of a kind:
+    elif count_pattern == [3, 1, 1]:
+        return (4, *rank_tiebreaker)
+    # Two Pairs:
+    elif count_pattern == [2, 2, 1]:
+        return (3, *rank_tiebreaker)
+    # One Pair:
+    elif count_pattern == [2, 1, 1, 1]:
+        return (2, *rank_tiebreaker)
+    # High Card:
+    else:
+        return (1, *rank_tiebreaker)
 
 
 if __name__ == "__main__":
-    hand = [Card("King", "hearts"),
-            Card("King", "clubs"),
-            Card("King", "spades"),
-            Card("5", "diamonds"),
-            Card("5", "hearts")
-    ]
-    print(rank_counts(hand))
-    print(rank_counts(hand).most_common())
+    full_house = [Card("9", "hearts"), Card("9", "clubs"), Card("9", "spades"), 
+                  Card("King", "diamonds"), Card("King", "hearts")]
+    
+    two_pair = [Card("Ace", "hearts"), Card("Ace", "clubs"), Card("2", "spades"), 
+                  Card("2", "diamonds"), Card("King", "hearts")]   
+    
+    wheel_sf = [Card("Ace", "hearts"), Card("2", "hearts"), Card("3", "hearts"), 
+                  Card("4", "hearts"), Card("5", "hearts")]
+
+    print(evaluate_hand(full_house))
+    print(evaluate_hand(two_pair))
+    print(evaluate_hand(wheel_sf)) 
