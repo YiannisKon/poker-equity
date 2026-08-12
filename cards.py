@@ -41,7 +41,13 @@ class Deck:
         dealt = self.cards[:n]
         del self.cards[:n]
         return dealt
-        
+
+    def remove(self, cards):
+        for c in cards:
+            self.cards.remove(c)
+
+
+            
 if __name__ == "__main__":
 
     d = Deck()
