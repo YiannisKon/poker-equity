@@ -57,17 +57,3 @@ if __name__ == "__main__":
     print(d.deal(5))
     print(len(d.cards))
 
-
-    
-
-
-"""
-
-print(Card("King", "hearts") == Card("King", "hearts"))   # want True
-print(Card("King", "hearts") == Card("King", "spades"))   # want False
-print(Card("Queen", "hearts") == Card("King", "hearts"))  # want False
-print(Card("King", "hearts") == "banana")
-print(Card("King", "hearts") == 5)
-print(Card("King", "hearts"))
-
-"""

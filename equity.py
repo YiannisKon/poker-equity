@@ -55,3 +55,4 @@ if __name__ == "__main__":
     hand_2 = parse_hand(args.hand_2)
     eq_1, eq_2 = simulate(hand_1, hand_2, args.trials)
     print(f"{eq_1:.1f}/{eq_2:.1f}")
+
