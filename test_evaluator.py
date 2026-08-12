@@ -1,5 +1,5 @@
 from cards import Card
-from evaluator import is_flush, is_straight, evaluate_hand
+from evaluator import is_flush, is_straight, evaluate_hand, best_of_seven
 
 
 def test_flush_returns_sorted_ranks():
@@ -98,3 +98,12 @@ def test_hand_evaluator():
     assert evaluate_hand(one_pair)        ==    (2, 13, 8, 7, 2)
     assert evaluate_hand(high_card)       ==    (1, 14, 9, 7, 4, 3)
     assert evaluate_hand(wheel_sf)        ==    (9, 5)
+
+
+def test_best_of_seven():
+
+    seven = [Card("Ace", "hearts"), Card("King", "hearts"),
+             Card("Queen", "hearts"), Card("Jack", "hearts"),
+             Card("10", "hearts"), Card("9", "clubs"), Card("9", "diamonds")]
+
+    assert best_of_seven(seven) == (9, 14)

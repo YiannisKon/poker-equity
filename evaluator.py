@@ -1,5 +1,6 @@
 from cards import Card, Deck 
 from collections import Counter
+from itertools import combinations
 
 def rank_counts(cards):
     ranks = []
@@ -77,16 +78,5 @@ def evaluate_hand(cards):
         return (1, *rank_tiebreaker)
 
 
-if __name__ == "__main__":
-    full_house = [Card("9", "hearts"), Card("9", "clubs"), Card("9", "spades"), 
-                  Card("King", "diamonds"), Card("King", "hearts")]
-    
-    two_pair = [Card("Ace", "hearts"), Card("Ace", "clubs"), Card("2", "spades"), 
-                  Card("2", "diamonds"), Card("King", "hearts")]   
-    
-    wheel_sf = [Card("Ace", "hearts"), Card("2", "hearts"), Card("3", "hearts"), 
-                  Card("4", "hearts"), Card("5", "hearts")]
-
-    print(evaluate_hand(full_house))
-    print(evaluate_hand(two_pair))
-    print(evaluate_hand(wheel_sf)) 
+def best_of_seven(seven_cards):
+    return evaluate_hand(max(combinations(seven_cards, 5), key=evaluate_hand))
