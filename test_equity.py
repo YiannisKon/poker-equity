@@ -1,6 +1,6 @@
-from equity import parse_hand, simulate
 from cards import Card
-
+from equity import parse_hand, simulate
+from pytest import approx
 
 def test_parse_hand():
     hand = parse_hand("AhKh")
@@ -17,4 +17,43 @@ def test_aa_beats_kk():
     kk = [Card("King", "hearts"), Card("King", "spades")]
     eq1, eq2 = simulate(aa, kk)
     assert 79 < eq1 < 83
-    assert eq1 + eq2 == 100
+    assert eq1 + eq2 == approx(100)
+
+
+def test_suited_vs_pair():
+    AhKh = [Card("Ace", "hearts"), Card("King", "hearts")]
+    QdQc = [Card("Queen", "diamonds"), Card("Queen", "clubs")]
+    eq1, eq2 = simulate(AhKh, QdQc, 20_000)
+    assert 44 < eq1 < 48
+    assert eq1 + eq2 == approx(100)
+
+
+def test_offsuit_vs_bottompair():
+    AhKc = [Card("Ace", "hearts"), Card("King", "clubs")]
+    _2d2c = [Card("2", "diamonds"), Card("2", "clubs")]
+    eq1, eq2 = simulate(AhKc, _2d2c, 20_000)
+    assert 45 < eq1 < 49
+    assert eq1 + eq2 == approx(100)
+
+
+def test_dominating_hand():
+    AhAs = [Card("Ace", "hearts"), Card("Ace", "spades")]
+    _7d2c = [Card("7", "diamonds"), Card("2", "clubs")]
+    eq1, eq2 = simulate(AhAs, _7d2c, 20_000)
+    assert 86 < eq1 < 90
+    assert eq1 + eq2 == approx(100)
+
+
+def test_mirror_hand():
+    AhKh = [Card("Ace", "hearts"), Card("King", "hearts")]
+    AdKd = [Card("Ace", "diamonds"), Card("King", "diamonds")]
+    eq1, eq2 = simulate(AhKh, AdKd, 20_000)
+    assert 48 < eq1 < 52
+    assert eq1 + eq2 == approx(100)
+
+def test_samesuits_hand():
+    AhQh = [Card("Ace", "hearts"), Card("Queen", "hearts")]
+    KhJh = [Card("King", "hearts"), Card("Jack", "hearts")]
+    eq1, eq2 = simulate(AhQh, KhJh, 20_000)
+    assert 61 < eq1 < 65
+    assert eq1 + eq2 == approx(100)
