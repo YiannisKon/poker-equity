@@ -23,7 +23,6 @@ class Card:
         return hash((self.rank, self.suit))
 
 
-
 suits = ["hearts", "diamonds", "clubs", "spades"]
 
 class Deck:
@@ -56,4 +55,3 @@ if __name__ == "__main__":
     print(d.deal(2))
     print(d.deal(5))
     print(len(d.cards))
-

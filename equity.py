@@ -8,7 +8,6 @@ RANKS_SHORT = {"2": "2", "3": "3", "4": "4", "5": "5", "6": "6", "7": "7", "8": 
 SUITS_SHORT = {"h": "hearts", "d": "diamonds", "c": "clubs", "s": "spades"}
 
 
-
 def simulate(hand_1, hand_2, trials=100_000):
     # hand1, hand2, lists of 2 Card objects each
     wins_1 = 0
@@ -32,9 +31,9 @@ def simulate(hand_1, hand_2, trials=100_000):
         else:
             ties += 1
 
-    hand_1_eq = ((wins_1 + ties/2) / trials) * 100
-    hand_2_eq = ((wins_2 + ties/2) / trials) * 100
-    return (hand_1_eq, hand_2_eq)
+    eq_1 = ((wins_1 + ties/2) / trials) * 100
+    eq_2 = ((wins_2 + ties/2) / trials) * 100
+    return (eq_1, eq_2)
 
 
 def simulate_vs_random(hero_hand, n_opponents=1, trials=100_000):

@@ -7,7 +7,6 @@ def rank_counts(cards):
         ranks.append(c.rank)
     return Counter(ranks)
 
-
 def is_flush(cards):
     suits = set()
     ranks = []
@@ -17,7 +16,6 @@ def is_flush(cards):
     if len(suits) == 1:
         return tuple(sorted(ranks, reverse= True))
     return None
-
 
 def is_straight(cards):
     straight = []
@@ -31,10 +29,8 @@ def is_straight(cards):
             return None
     return straight[4]
 
-
 # poker hands: high card, one pair, two pair, three of a king, straight, flush, full house,
 # four of a king, straight flush
-
 
 def evaluate_hand(cards):
     counts = rank_counts(cards)
@@ -75,7 +71,6 @@ def evaluate_hand(cards):
     # High Card:
     else:
         return (1, *rank_tiebreaker)
-
 
 def best_of_seven(seven_cards):
     return evaluate_hand(max(combinations(seven_cards, 5), key=evaluate_hand))
