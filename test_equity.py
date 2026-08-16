@@ -1,5 +1,5 @@
 from cards import Card
-from equity import parse_hand, simulate
+from equity import parse_hand, simulate, simulate_vs_random
 from pytest import approx
 
 def test_parse_hand():
@@ -57,3 +57,16 @@ def test_samesuits_hand():
     eq1, eq2 = simulate(AhQh, KhJh, 20_000)
     assert 61 < eq1 < 65
     assert eq1 + eq2 == approx(100)
+
+
+def test_aces_vs_random_headsup():
+    aces = [Card("Ace", "spades"), Card("Ace", "hearts")]
+    eq = simulate_vs_random(aces, trials=20_000)
+    assert 83 < eq < 87
+
+
+def test_aces_vs_random_multiway():
+    aces = [Card("Ace", "spades"), Card("Ace", "hearts")]
+    eq = simulate_vs_random(aces, n_opponents=4, trials=20_000)
+    assert 52 < eq < 59
+    

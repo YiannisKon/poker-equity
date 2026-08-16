@@ -7,4 +7,3 @@ def test_number_of_cards_initially():
 def test_all_cards_unique():
     d = Deck()
     assert len(set(d.cards)) == 52
-
