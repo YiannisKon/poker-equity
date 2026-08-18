@@ -55,3 +55,4 @@ if __name__ == "__main__":
     print(d.deal(2))
     print(d.deal(5))
     print(len(d.cards))
+    print(d.deal(0))
