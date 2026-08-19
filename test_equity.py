@@ -95,4 +95,3 @@ def test_board_always_ties():
     board = parse_board("AhKhQhJhTh")
     eq1, eq2 = simulate(hero, opponent, board, trials=2_000)
     assert eq1 == 50 and eq2 == 50
-
