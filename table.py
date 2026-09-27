@@ -5,7 +5,8 @@ import argparse
 from cards import Deck
 from equity import parse_hand, parse_board
 from make_assets import RANK_FILECHAR
-
+import ctypes
+ctypes.windll.shcore.SetProcessDpiAwareness(2)
 
 WINDOW_W, WINDOW_H = 800, 600
 CARD_W, CARD_H = 100, 140
