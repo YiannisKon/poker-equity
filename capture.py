@@ -20,7 +20,7 @@ def find_table_window():
     if not windows:
         raise SystemError("Mock Poker Table not found. Is table.py running?")
 
-    win = windows[0]
+    win = windows[0]        # picks first object from the windows list
     try:
         win.activate()      # bring table window to the front
     except Exception:
@@ -33,7 +33,7 @@ def grab_window(win):
     region = {"left": win.left, "top": win.top, "width": win.width, "height": win.height}
     with mss.MSS() as sct:
         shot = sct.grab(region)
-        return np.array(shot)
+        return np.array(shot)   # returns row x columns x 4 colour values
 
 def client_offset(win):
     #pixel offset from window's outer top-left to the drawing are
@@ -62,10 +62,10 @@ def crop_all(frame, offset):
     return crops
 
 def save_crops(crops):
-    os.makedirs(CROP_DIR, exist_ok=True)
+    os.makedirs(CROP_DIR, exist_ok=True)    # creates the "crops" folder (fine if it alredy exists)
 
     for name, arr in crops.items():
-        rgb = arr[:, :, :3][:, :, ::-1]
+        rgb = arr[:, :, :3][:, :, ::-1]     # fixed colours from B,G,R,A to R,G,B (files need it)
         path = os.path.join(CROP_DIR, name + ".png")
         Image.fromarray(rgb).save(path)
 
